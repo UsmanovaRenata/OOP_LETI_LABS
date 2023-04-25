@@ -17,6 +17,8 @@ void Application::onRecieveFromClient(QByteArray msg)
 
    int matrixSize = splited[0].toInt();
 
+   int index = 1;
+
    auto values = new number * [matrixSize];
        for (int i = 0; i < matrixSize; i++) {
            values[i] = new number[matrixSize];
@@ -25,7 +27,8 @@ void Application::onRecieveFromClient(QByteArray msg)
        for (int i = 0; i < matrixSize; i++) {
 
            for (int j = 0; j < matrixSize; j++) {
-               QString text = splited[i * j + 1];
+
+               QString text = splited[index];
                const QList<QString> textSplited = text.split('/');
 
                if (textSplited.length() > 1) {
@@ -33,7 +36,7 @@ void Application::onRecieveFromClient(QByteArray msg)
                } else {
                    values[i][j] = *(new number(textSplited[0].toInt()));
                }
-
+                index++;
 
            }
        }
